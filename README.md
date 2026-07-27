@@ -1,24 +1,24 @@
 # Análisis de Incidente Simulado: Fuerza Bruta y Kerberoasting en Active Directory
 
-## 📋 Descripción
+## Descripción
 
 Este proyecto documenta el análisis de un incidente simulado de seguridad en un entorno de Active Directory, usando un dataset real de la comunidad de seguridad (Security Datasets / OTRF). El objetivo fue practicar el flujo de trabajo de un analista SOC nivel 1-2: desde la carga y exploración de logs hasta la redacción de un informe de incidente profesional.
 
-## 🎯 Objetivo
+## Objetivo
 
 - Analizar logs reales de Windows (Event Logs) usando Python y pandas
 - Identificar un ataque de fuerza bruta (T1110.003) y un ataque de robo de tickets Kerberos (T1558.003, Kerberoasting)
 - Reconstruir el timeline completo del ataque a partir de los timestamps de los eventos
 - Documentar los hallazgos en un informe de incidente con formato profesional
 
-## 🛠️ Herramientas utilizadas
+## Herramientas utilizadas
 
 - **Análisis de datos:** Python 3, pandas
 - **Dataset:** [PurpleSharp Active Directory Playbook I](https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-201022042947.html) (Security Datasets / OTRF)
 - **Entorno:** Arch Linux (terminal)
 - **Formato de logs:** JSON (Windows Event Logs — canal Security y Sysmon)
 
-## 🔍 Técnicas MITRE ATT&CK identificadas
+## Técnicas MITRE ATT&CK identificadas
 
 | ID | Técnica | Táctica |
 |---|---|---|
@@ -27,7 +27,7 @@ Este proyecto documenta el análisis de un incidente simulado de seguridad en un
 | T1135 | Network Share Discovery | Discovery |
 | T1021.006 | Remote Services: Windows Remote Management | Lateral Movement |
 
-## 📐 Metodología
+## Metodología
 
 1. Se descargó el dataset público (logs de Windows en formato JSON) generado con la herramienta PurpleSharp
 2. Se cargaron los logs en un DataFrame de pandas y se exploraron por canal (`Channel`) y tipo de evento (`EventID`)
@@ -36,22 +36,22 @@ Este proyecto documenta el análisis de un incidente simulado de seguridad en un
 5. Se cruzaron los resultados con el log original del atacante para confirmar el robo de tickets Kerberos, enumeración de recursos y movimiento lateral
 6. Se documentaron los hallazgos en un informe de incidente completo
 
-## 📸 Evidencia
+## Evidencia
 
 Capturas de pantalla del análisis paso a paso disponibles en [`screenshots/`](./screenshots/).
 
-## 🚨 Hallazgos principales
+## Hallazgos principales
 
 - El atacante, ya autenticado como `pgustavo`, ejecutó fuerza bruta contra 7 cuentas del dominio (incluyendo su propia cuenta) — las 7 autenticaciones fallaron
 - El ataque completo (fuerza bruta + robo de tickets + enumeración + movimiento lateral) duró aproximadamente 14 segundos
 - Aunque el brute force falló, el atacante robó exitosamente 5 tickets de servicio Kerberos, lo que representa una amenaza latente si esas contraseñas son débiles
 
-## 📄 Informe completo
+## Informe completo
 
 El informe de incidente detallado (timeline completo, IOCs, análisis técnico, impacto y recomendaciones) está disponible acá:
 👉 [informe-incidente.md](./informe-incidente.md)
 
-## 💡 Lecciones aprendidas
+## Lecciones aprendidas
 
 - Aprendí a diferenciar Event ID 4624 (login exitoso) de 4625 (login fallido), y por qué son la base de la detección de fuerza bruta
 - Entendí que un login exitoso de una cuenta no siempre significa que esa cuenta fue comprometida — hay que verificar el contexto (¿ya estaba logueada antes del ataque?)
