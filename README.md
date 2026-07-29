@@ -1,6 +1,6 @@
 # Análisis de Incidente Simulado: Fuerza Bruta y Kerberoasting en Active Directory
 
-> **TL;DR:** Analicé un dataset real de Windows Event Logs y reconstruí un ataque completo contra un entorno de Active Directory: fuerza bruta fallida contra 7 cuentas, seguida de un Kerberoasting exitoso (5 tickets robados), enumeración de recursos y movimiento lateral — todo en una ventana de ~14 segundos. El análisis se hizo con Python y pandas, mapeando cada fase a técnicas de MITRE ATT&CK.
+> **TL;DR:** Analicé un dataset real de Windows Event Logs y reconstruí un ataque completo en Active Directory — fuerza bruta fallida, Kerberoasting exitoso (5 tickets robados) y movimiento lateral, todo en ~14 segundos. Análisis hecho con Python y pandas, mapeado a MITRE ATT&CK.
 
 ## Descripción
 
